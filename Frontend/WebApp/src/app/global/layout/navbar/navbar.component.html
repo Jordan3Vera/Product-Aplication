@@ -1,0 +1,18 @@
+<!-- Esta es la barra de navegación para navegar una vez logueado -->
+
+<p-menubar [model]="items" styleClass="fixed top-0 left-0 right-0 border-noround">
+    <ng-template pTemplate="start">
+        <img src="../../../../assets/images/store.png" alt="Imagen de universidad" height="40">
+    </ng-template>
+    <ng-template pTemplate="end">
+        <button type="button" pButton class="p-button-sm p-button-text" disabled="true">
+            <span class="text-lg text-gray-700">
+                <i class="pi pi-fw pi-user mr-2"></i>| {{ userReadonly }} |
+            </span>
+        </button>
+        <button type="button" pButton icon="pi pi-fw pi-power-off" style="border-radius: 5px;"
+        class="p-button-sm bg-red-400 border-none hover:bg-red-600" 
+        (click)="buttonCloseSession()" pTooltip="Cerrar sesión" tooltipPosition="left">
+        </button>
+    </ng-template>
+</p-menubar>

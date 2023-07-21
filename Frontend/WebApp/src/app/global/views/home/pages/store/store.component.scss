@@ -1,0 +1,22 @@
+section{
+    width: 90%;
+    margin: 6rem auto;
+}
+
+:host ::ng-deep{
+    .p-datatable{
+        border: 1px solid black;
+        border-radius: 2px;
+    }
+    .p-datatable-header{
+        background-color: orange;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    tr th{
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    tr td{
+        font-family: Arial, sans-serif;
+    }
+}

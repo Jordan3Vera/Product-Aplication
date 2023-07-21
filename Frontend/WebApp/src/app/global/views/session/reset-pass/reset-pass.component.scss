@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+}
+.grid{
+    margin-top: 10%;
+}
+
+:host ::ng-deep{
+    .p-panel-header{
+        background-color: #212121;
+        color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .p-panel-content{
+        background-color: lightblue;
+    }
+}

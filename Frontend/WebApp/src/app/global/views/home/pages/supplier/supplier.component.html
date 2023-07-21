@@ -1,0 +1,106 @@
+
+<section class="grid">
+
+    <article class="lg:col-10 m-auto">
+        <p-table #dt responsiveLayout="scroll" [value]="suppliers" [paginator]="true" styleClass="p-datatable-sm" 
+        [rows]="5" [showCurrentPageReport]="true" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="caption">
+                <div class="flex alig-items-center justify-content-between">
+                    <h4 class="mt-3">Registro de Proveedores</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-fw pi-search"></i>
+                        <input type="text" pInputText (input)="dt.filterGlobal($event.target,'contains')"
+                        placeholder="Buscar...">
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Teléfono</th>
+                    <th>
+                        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-sm p-button-success mr-2 cursor-pointer"
+                        (click)="openNew()" pTooltip="Agregar registro" tooltipPosition="top"></button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.lastname}}</td>
+                    <td>{{item.date | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-primary mr-2 p-button-sm cursor-pointer"
+                        (click)="editSupplier(item)" pTooltip="Editar registro"></button>
+                        <button pButton pRipple icon="pi pi-fw pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deleteSupplier(item)" pTooltip="Eliminar registro" tooltipPosition="right"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    Hay un total de {{ suppliers ? suppliers.length : 0 }} empresas.
+                </div>
+            </ng-template>
+        </p-table>
+    </article>
+
+    <!-- Para mostrar el dialogo -->
+    <article>
+        <p-dialog [(visible)]="supplierDialog" [style]="{width:'450px'}" header="Detalles de la empresa"
+        [modal]="true" styleClass="p-fluid" [draggable]="false">
+            <ng-template pTemplate="content">
+                <form [formGroup]="form" (ngSubmit)="saveSupplier(form.value)">
+
+                    <div class="p-field">
+                        <label for="name">Nombre</label>
+                        <input type="text" pInputText id="name" formControlName="name" required autofocus 
+                        placeholder="Ingresar el nombre del proveedor">
+                        <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.maxlength">Excede el máximo de 20 carácteres</small>
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.pattern">No se permiten números o caracteres especiales</small>
+                        </div>
+                    </div>
+                    <div class="p-field">
+                        <label for="lastname">Apellido</label>
+                        <input type="text" pInputText id="lastname" formControlName="lastname" placeholder="Ingresar el apellido">
+                        <div *ngIf="form.controls['lastname'].invalid && form.controls['lastname'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['lastname'].errors.maxlength">Excede el máximo de 20 carácteres</small>
+                            <small class="text-red-500" *ngIf="form.controls['lastname'].errors.pattern">No se permiten números o caracteres especiales</small>
+                        </div>
+                    </div>
+    
+                    <div class="p-field">
+                        <label for="date">Fecha de naciemiento</label>
+                        <input type="date" pInputText id="date" formControlName="date" min="1930-12-12" max="2022-01-01">
+                        <div *ngIf="form.controls['date'].invalid && form.controls['date'].touched">
+                            
+                        </div>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="phone">Número de teléfono</label>
+                        <input type="text" pInputText id="phone" formControlName="phone" placeholder="Ingresar número de teléfono">
+                        <div *ngIf="form.controls['phone'].invalid && form.controls['phone'].touched">
+                            <small *ngIf="form.controls['phone'].errors.pattern" class="text-red-500">Solo se aceptan números</small>
+                            <small *ngIf="form.controls['phone'].errors.maxlength" class="text-red-500">
+                                No debe haber más de números
+                            </small>
+                        </div>
+                    </div>
+    
+                    <div class="p-field">
+                        <button type="button" pRipple mat-button class="bg-red-500 text-white" (click)="hideDialog()">Cancelar</button>
+                        <button type="submit" pRipple mat-button class="bg-green-400 text-black ml-4" [disabled]="form.invalid">Guardar</button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-dialog> 
+    </article>
+</section>

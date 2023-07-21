@@ -1,0 +1,128 @@
+<section>
+    <article class="lg:col-12 m-auto">
+        <p-table #dt responsiveLayout="scroll" [value]="products" [paginator]="true" [globalFilterFields]="['name','city','region','country']"
+        styleClass="p-datatable-sm" selectionMode="single" dataKey="id" [(selection)]="selectedProduct"
+        [rows]="5" [showCurrentPageReport]="true" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="caption">
+                <div class="flex alig-items-center justify-content-between">
+                    <h4 class="mt-3">Registro de productos</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-fw pi-search"></i>
+                        <input type="text" pInputText (input)="dt.filterGlobal($event.target,'contains')"
+                        placeholder="Buscar...">
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Id</th>
+                    <th>Producto</th>
+                    <th>Gama</th>
+                    <th>Descripción</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Proveedor</th>
+                    <th>Empresa</th>
+                    <th>
+                        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-sm p-button-success mr-2 cursor-pointer"
+                        (click)="openNew()" pTooltip="Agregar registro" tooltipPosition="top"></button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.gamma}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>{{item.price | currency}}</td>
+                    <td >{{item.suppliers.name}}</td>
+                    <td >{{item.companys.name}}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-primary mr-2 p-button-sm cursor-pointer"
+                        (click)="editProduct(item)" pTooltip="Editar registro"></button>
+                        <button pButton pRipple icon="pi pi-fw pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deleteProduct(item)" pTooltip="Eliminar registro" tooltipPosition="right"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    Hay un total de {{ products ? products.length : 0 }} empresas.
+                </div>
+            </ng-template>
+        </p-table>
+    </article>
+
+    <!-- Para mostrar el dialogo -->
+    <article>
+        <p-dialog [(visible)]="productDialog" [style]="{width:'450px'}" header="Formulario de productos"
+        [modal]="true" styleClass="p-fluid" [draggable]="false">
+            <ng-template pTemplate="content">
+                <form [formGroup]="form" (ngSubmit)="saveProduct(form.value)">
+                    <div class="p-field">
+                        <label for="name">Producto</label>
+                        <input type="text" pInputText id="name" formControlName="name" required autofocus 
+                        placeholder="Ingresar el nombre del producto">
+                        <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.required">Este campo no puede quedar vacío</small>
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.maxlength">No puede haber más de 30 carácteres</small>
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.pattern">No se permiten número o caracteres especiales</small>
+                        </div>
+                    </div>
+                    <div class="p-field mt-3">
+                        <label for="gamma">Gama</label>
+                        <input type="text" pInputText placeholder="Ingresa la gama del producto" formControlName="gamma">
+                        <div *ngIf="form.controls['gamma'].invalid && form.controls['gamma'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['gamma'].errors.required">Este campo no puede quedar vacío</small>
+                            <small class="text-red-500" *ngIf="form.controls['gamma'].errors.maxlength">No puede haber más de 20 carácteres</small>
+                        </div>
+                    </div>
+                    <div class="p-field mt-3">
+                        <label for="description">Descripción</label>
+                        <textarea name="description" id="description" cols="30" rows="5" pInputTextarea formControlName="description"
+                        placeholder="Acerca del producto..." [autoResize]="false"></textarea>
+                        <div *ngIf="form.controls['description'].invalid && form.controls['description'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['description'].errors.required">Este campo no puede quedar vacío</small>
+                            <small class="text-red-500" *ngIf="form.controls['description'].errors.maxlength">No puede haber más de 350 carácteres</small>
+                        </div>
+                    </div>
+                    <div class="p-field mt-3">
+                        <label for="stock">Stock</label>
+                        <input type="text" pInputText placeholder="Ingresar cantidad de stock" min="0" formControlName="stock">
+                        <div *ngIf="form.controls['stock'].invalid && form.controls['stock'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['stock'].errors.required">Este campo no puede quedar vacío</small>
+                            <small class="text-red-500" *ngIf="form.controls['stock'].errors.pattern">Solo se permiten números y sin espacios</small>
+                            <small class="text-red-500" *ngIf="form.controls['stock'].errors.maxlength">No puede exceder a más de 4 carácteres</small>
+                        </div>
+                    </div>
+
+                    <div class="p-field mt-3">
+                        <label for="price">Precio</label>
+                        <input type="text" pInputText placeholder="Ingresar precio del producto" formControlName="price">
+                        <div *ngIf="form.controls['price'].invalid && form.controls['price'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['price'].errors.required">Este campo no puede quedar vacío</small>
+                        </div>
+                    </div>
+
+                    <div class="p-field mt-3">
+                        <label for="suppliers">Proveedor</label>
+                        <p-dropdown [options]="suppliers" [(ngModel)]="selectedSupplier" optionLabel="name" placeholder="Seleccionar proveedor"
+                        formControlName="suppliers" appendTo="body"></p-dropdown>
+                    </div>
+                    <div class="p-field mt-3">
+                        <label for="companys">Empresa</label>
+                        <p-dropdown [options]="companys" [(ngModel)]="selectedCompany" placeholder="Seleccionar empresa"
+                        optionLabel="name" formControlName="companys" appendTo="body"></p-dropdown>
+                    </div>
+                    <div class="p-field mt-4">
+                        <button type="button" pRipple mat-button class="bg-red-500 text-white" (click)="hideDialog()">Cancelar</button>
+                        <button type="submit" pRipple mat-button class="bg-green-400 text-black ml-4" [disabled]="form.invalid">Guardar</button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-dialog> 
+    </article>
+</section>

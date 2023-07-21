@@ -1,0 +1,28 @@
+section{
+    width: 75%;
+    margin: 8rem auto;
+}
+
+section article{
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+tr th{
+    text-align: center;
+    font-family: Vagrant;
+    text-transform: uppercase;
+}
+tr td{
+    text-align: center;
+}
+
+:host ::ng-deep{
+    .p-datatable{
+        .p-datatable-header{
+            background-color: orange;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 1rem 10px;
+        }
+    }
+}

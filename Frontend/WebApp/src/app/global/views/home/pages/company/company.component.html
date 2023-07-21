@@ -1,0 +1,105 @@
+<section class="grid">
+
+    <article class="lg:col-10 m-auto">
+        <p-table #dt responsiveLayout="scroll" [value]="companys" [paginator]="true" [globalFilterFields]="['name','city','region','country']"
+        styleClass="p-datatable-sm" selectionMode="single" dataKey="id" [(selection)]="selectedCompany"
+        [rows]="5" [showCurrentPageReport]="true" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="caption">
+                <div class="flex alig-items-center justify-content-between">
+                    <h4 class="mt-3">Registro de empresas</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-fw pi-search"></i>
+                        <input type="text" pInputText (input)="dt.filterGlobal($event.target,'contains')"
+                        placeholder="Buscar...">
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Id</th>
+                    <th>Empresas</th>
+                    <th>Ciudad</th>
+                    <th>Provincia</th>
+                    <th>País</th>
+                    <th>
+                        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-sm p-button-success mr-2 cursor-pointer"
+                        (click)="openNew()" pTooltip="Agregar registro" tooltipPosition="top"></button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.region}}</td>
+                    <td>{{item.country}}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-primary mr-2 p-button-sm cursor-pointer"
+                        (click)="editCompany(item)" pTooltip="Editar registro"></button>
+                        <button pButton pRipple icon="pi pi-fw pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deleteCompany(item)" pTooltip="Eliminar registro" tooltipPosition="right"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    Hay un total de {{ companys ? companys.length : 0 }} empresas.
+                </div>
+            </ng-template>
+        </p-table>
+    </article>
+
+    <!-- Para mostrar el dialogo -->
+    <article>
+        <p-dialog [(visible)]="companyDialog" [style]="{width:'450px'}" header="Detalles de la empresa"
+        [modal]="true" styleClass="p-fluid" [draggable]="false">
+            <ng-template pTemplate="content">
+                <form [formGroup]="form" (ngSubmit)="saveCompany(form.value)">
+
+                    <div class="p-field">
+                        <label for="name">Empresa</label>
+                        <input type="text" pInputText id="name" formControlName="name" required autofocus 
+                        placeholder="Ingresar el nombre de la empresa">
+                        <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.maxlength">No puede haber más de 30 carácteres</small>
+                            <small class="text-red-500" *ngIf="form.controls['name'].errors.pattern">No se aceptan números o caracteres especiales</small>
+                        </div>
+                    </div>
+                    <div class="p-field">
+                        <label for="city">Ciudad</label>
+                        <input type="text" pInputText id="city" formControlName="city" placeholder="Ingresar nombre de la ciiudad">
+                        <div *ngIf="form.controls['city'].invalid && form.controls['city'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['city'].errors.maxlength">No puede haber más de 20 carácteres</small>
+                            <small class="text-red-500" *ngIf="form.controls['city'].errors.pattern">No se aceptan números o caracteres especiales</small>
+                        </div>
+                    </div>
+    
+                    <div class="p-field">
+                        <label for="region">Provincia</label>
+                        <input type="text" pInputText id="region" formControlName="region" placeholder="Ingrsar nombre de la provincia">
+                        <div *ngIf="form.controls['region'].invalid && form.controls['region'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['region'].errors.pattern">No se aceptan números o caracteres especiales</small>
+                            <small class="text-red-500" *ngIf="form.controls['region'].errors.maxlength">No puede haber más de 20 carácteres</small>
+                        </div>
+                    </div>
+    
+                    <div class="p-field">
+                        <label for="country">País</label>
+                        <input type="text" pInputText id="country" formControlName="country" placeholder="Ingresar el país de origen">
+                        <div *ngIf="form.controls['country'].invalid && form.controls['country'].touched">
+                            <small class="text-red-500" *ngIf="form.controls['country'].errors.pattern">No se aceptan números o caracteres especiales</small>
+                            <small class="text-red-500" *ngIf="form.controls['country'].errors.maxlength">No puede haber más de 20 carácteres</small>
+                        </div>
+                    </div>
+    
+                    <div class="p-field">
+                        <button type="button" pRipple mat-button class="bg-red-500 text-white" (click)="hideDialog()">Cancelar</button>
+                        <button type="submit" pRipple mat-button class="bg-green-400 text-black ml-4" [disabled]="form.invalid">Guardar</button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-dialog> 
+    </article>
+</section>

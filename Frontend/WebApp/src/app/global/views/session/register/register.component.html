@@ -1,0 +1,72 @@
+<app-navbar-session></app-navbar-session>
+
+<section>    
+    <div class="grid justify-content-center">
+        <p-panel styleClass="pPanel">
+            <ng-template pTemplate="header" styleClass="bg-orange-500">
+                <span>Registrarse</span>
+            </ng-template>
+            <ng-template pTemplate="content">
+
+                <!-- Este es el mismo pero aplicado con los ng-model -->
+                <!-- <form autocomplete="off">
+                    <div class="card">
+                        <div class="field">
+                            <label for="username">Usuario</label>
+                            <input pInputText id="username" type="text" autofocus="on" name="username" [(ngModel)]="username"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            placeholder="Ingresar nombre de usuario">
+                        </div>
+                        <div class="field">
+                            <label for="email">Correo electrónico</label>
+                            <input pInputText id="email" type="text" autofocus name="email" [(ngModel)]="email"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            placeholder="Ingresar el correo electrónico">
+                        </div>
+                        <div class="field">
+                            <label for="password">Contraseña</label>
+                            <input id="password" type="password" name="password" [(ngModel)]="password"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            placeholder=" Crear contraseña">
+                        </div>
+                        <div class="field">
+                            <label for="confirmPass">Repetir contraseña</label>
+                            <input type="password" name="confirmPass" placeholder="Repetir contraseña" [(ngModel)]="confirmPassword"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                        <div class="field text-center mt-5">
+                            <p-button type="submit" label="Guardar" styleClass="btn" (onClick)="register()" pTooltip="Registrarse" tooltipPosition="bottom">
+                            </p-button>
+                        </div>
+                    </div>
+                </form>  -->
+                <form autocomplete="off" [formGroup]="form" (ngSubmit)="register()">
+                    <div class="card">
+                        <div class="field">
+                            <label for="username">Usuario</label>
+                            <input pInputText id="username" type="text" name="username" formControlName="username" placeholder="Crear nombre de usuario"
+                            maxlength="40">
+                        </div>
+                        <div class="field">
+                            <label for="email">Correo electrónico</label>
+                            <input pInputText id="email" type="text" name="email" formControlName="email" placeholder="Ingresar correo electrónico">
+                        </div>
+                        <div class="field">
+                            <label for="password">Contraseña</label>
+                            <input id="password" type="password" name="password" formControlName="password" pInputText placeholder="Crear contraseña"
+                            maxlength="16" min="4">
+                        </div>
+                        <div class="field">
+                            <label for="confirmPassword">Repetir contraseña</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repetir contraseña" formControlName="confirmPassword" pInputText>
+                        </div>
+                        <div class="field text-center mt-5">
+                            <p-button type="submit" label="Guardar" styleClass="btn" [disabled]="form.invalid" pTooltip="Registrarse" tooltipPosition="bottom">
+                            </p-button>
+                        </div>
+                    </div>
+                </form> 
+            </ng-template>
+        </p-panel>
+    </div>  
+</section>

@@ -1,0 +1,16 @@
+<p-menubar [baseZIndex]="999999" [autoDisplay]="false">
+    <ng-template pTemplate="start">
+        <img src="../../../../assets/images/store.png" alt="Imagen de universidad" height="40">
+    </ng-template>
+    <ng-template pTemplate="end">
+       <div class="flex flex-row gap-3">
+            <span>
+                <a routerLink="/" pTooltip="Ir al login" tooltipPosition="bottom">Iniciar sesión</a>
+            </span>
+            |
+            <span>
+                <a routerLink="/register" pTooltip="Ir al registro" tooltipPosition="bottom">Registrarse</a>
+            </span>
+       </div>
+    </ng-template>
+</p-menubar>

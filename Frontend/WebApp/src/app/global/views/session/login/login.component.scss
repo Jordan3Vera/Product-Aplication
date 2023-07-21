@@ -1,0 +1,55 @@
+*{
+    box-sizing: border-box;
+}
+
+@keyframes p-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #d62d20;
+    }
+    40% {
+        stroke: #0057e7;
+    }
+    66% {
+        stroke: #008744;
+    }
+    80%,
+    90% {
+        stroke: #ffa700;
+    }
+}
+
+@media (max-width: 1366px){
+    section{
+        margin-top: -5rem;
+    }
+}
+
+@media (max-width: 1920px) {
+    :host ::ng-deep .pPanel{
+        margin-top: 12rem;
+    }
+}
+
+:host ::ng-deep{
+    .p-panel-header{
+        background-color: #212121;
+        color: #f2f2f2;
+        font-weight: bold;
+    }
+    .p-panel-content{
+        background-color: lightblue;
+        color: black;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .p-inputtext{
+        background-color: red;;
+    }
+
+    .btn{
+        font-family: Vagrant;
+        border-radius: 0;
+        background-color: brown;
+        border: none;
+    }
+}

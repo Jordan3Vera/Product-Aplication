@@ -1,0 +1,49 @@
+*{
+    box-sizing: border-box;
+}
+.grid{
+    margin-top: 5%;
+}
+
+@media (max-width: 1366px){
+    section{
+        margin-top: -3rem;
+    }
+}
+
+@media (max-width: 1920px) {
+    section{
+        margin-top: 8rem;
+    }
+}
+
+:host ::ng-deep{
+    p-panel{
+        .p-panel-header{
+            background-color: #212121;
+            color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
+            height: 50px;
+        }
+        .p-panel-content{
+            background-color: lightblue;
+            color: black;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .p-inputtext{
+            width: 100%;
+            border-radius: 0;
+            height: 2.5rem;
+            border: none;
+            background-color: #f2f2f2;
+        }
+    
+        .btn{
+            font-family: Vagrant;
+            border-radius: 0;
+            background-color: brown;
+            border: none;
+        }
+    }
+}

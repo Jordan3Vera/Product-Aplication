@@ -1,0 +1,24 @@
+<section class="grid">
+    <article class="lg:col-8 m-auto">
+        <p-table responsiveLayout="scroll" [value]="users" [paginator]="true" [rows]="5"
+        styleClass="p-datatable-sm" [responsive]="true">
+            <ng-template pTemplate="caption">
+                Registro de usuarios
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.email}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </article>
+</section>

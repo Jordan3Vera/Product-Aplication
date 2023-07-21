@@ -1,0 +1,36 @@
+<app-navbar-session></app-navbar-session>
+
+<section>    
+    <div class="grid justify-content-center">
+        <p-panel styleClass="pPanel">
+            <ng-template pTemplate="header" styleClass="bg-orange-500">
+                <span style="text-transform: uppercase;">Iniciar sesión</span>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <form autocomplete="off">
+                    <div class="card">
+                        <div class="field">
+                            <label for="email">Correo electrónico</label>
+                            <input pInputText id="email" type="text" autofocus name="email" [(ngModel)]="email" 
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            placeholder="Ingresar el correo electrónico">
+                        </div>
+                        <div class="field">
+                            <label for="password">Contraseña</label>
+                            <input id="password" type="password" name="password" [(ngModel)]="password"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            placeholder="Ingresar la contraseña">
+                        </div>
+                        <div class="field text-center mt-5">
+                            <p-button type="submit" (click)="login()" label="Ingresar" styleClass="btn" pTooltip="Acceder" tooltipPosition="bottom">
+                            </p-button>
+                        </div>
+                    </div>
+                </form>
+                    <div class="field text-center mb-3">
+                        <a routerLink="/reset-pass" class="no-underline hover:underline text-yellow-700">¿Olvidaste la contraseña?</a>
+                    </div>
+            </ng-template>
+        </p-panel>
+    </div>  
+</section>

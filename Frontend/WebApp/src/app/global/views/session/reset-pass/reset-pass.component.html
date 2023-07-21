@@ -1,0 +1,56 @@
+<!-- Este Formulario es para comprobar si el usuario existe -->
+<div class="grid justify-content-center" *ngIf="formPass == true ? '' : 'show'">
+    <p-panel>
+        <ng-template pTemplate="header">
+            <span class="uppercase">Restablecer contraseña</span>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+            <form autocomplete="off">
+                <div class="field">
+                    <label for="email">Correo electrónico</label>
+                    <input type="text" name="email" autofocus placeholder="Ingresa tu correo electrónico" [(ngModel)]="email" 
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field text-center">
+                    <button type="button" pButton label="Confirmar" class="p-button-sm p-button-success"
+                    (click)="EmailConfirm()"></button>
+                </div>
+            </form>
+            <div class="field text-center">
+                <a routerLink="/" class="no-underline hover:underline text-yellow-700">Volver al inicio</a>
+            </div>
+        </ng-template>
+    </p-panel>
+</div>
+
+<!-- Este Formulario es para mostrar el cambio de contraseña  -->
+<div class="grid justify-content-center" *ngIf="formPass == true ? 'hide' : ''">
+    <p-panel>
+        <ng-template pTemplate="header">
+            <span class="uppercase">Cambiar contraseña</span>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+            <form autocomplete="off">
+                <div class="field">
+                    <label for="password">Crear contraseña</label>
+                    <input type="password" name="password" placeholder="Nueva contraseña" [(ngModel)]="password" autofocus
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field">
+                    <label for="confirmPass">Repetir contraseña</label>
+                    <input type="password" name="confirmPass" placeholder="Repetir contraseña" [(ngModel)]="confirmPass"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field text-center" >
+                    <button type="submit" pButton label="Guardar" class="p-button-sm p-button-success border-noround" (click)="ChangePassword()"></button>
+                </div>
+                <div class="field text-center">
+                    <a routerLink="/" class="no-underline hover:underline text-red-700">Volver al inicio</a>
+                </div>
+            </form>
+        </ng-template>
+    </p-panel>
+</div> 
+
